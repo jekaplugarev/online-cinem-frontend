@@ -76,10 +76,9 @@ module.exports = {
 		},
 	},
 	plugins: [
-		plugin(({
-							addComponents, theme
-							, addUtilities,
-						}) => {
+		require('@tailwindcss/forms'),
+		require('@tailwindcss/aspect-ratio'),
+		plugin(({ addComponents, theme, addUtilities }) => {
 			addComponents({
 				'.btn-primary': {
 					backgroundColor: primary,

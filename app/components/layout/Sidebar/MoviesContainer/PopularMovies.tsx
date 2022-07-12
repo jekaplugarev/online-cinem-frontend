@@ -8,11 +8,9 @@ import SkeletonLoader from '@/ui/SkeletonLoader'
 import { MovieService } from '@/services/movie.service'
 
 const PopularMovies: FC = () => {
-	const { isLoading, data: popularMovies } = useQuery(
+	const { isLoading, data: movies } = useQuery(
 		'Popular movies in sidebar',
-		() => {
-			MovieService.getMostPopularMovies()
-		}
+		() => MovieService.getMostPopularMovies()
 	)
 	return isLoading ? (
 		<div className="mt-11">
@@ -21,7 +19,7 @@ const PopularMovies: FC = () => {
 	) : (
 		<MovieList
 			link="/trending"
-			movies={popularMovies || []}
+			movies={movies || []}
 			title="Популярные фильмы"
 		/>
 	)
