@@ -8,6 +8,7 @@ import { useAuthRedirect } from '@/screens/auth/useAuthRedirect'
 import Button from '@/ui/form-elements/Button'
 import Heading from '@/ui/heading/Heading'
 
+import { useAction } from '@/hooks/useAction'
 import { useAuth } from '@/hooks/useAuth'
 
 import Meta from '@/utils/meta/Meta'
@@ -27,9 +28,8 @@ const Auth: FC = () => {
 	} = useForm<IAuthInput>({
 		mode: 'onChange',
 	})
+	const { login, register } = useAction()
 
-	const login = (data: any) => {}
-	const register = (data: any) => {}
 	const onSubmit: SubmitHandler<IAuthInput> = (data) => {
 		if (type === 'login') login(data)
 		else if (type === 'register') register(data)
