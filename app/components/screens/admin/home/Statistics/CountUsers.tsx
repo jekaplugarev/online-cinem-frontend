@@ -13,8 +13,6 @@ const CountUsers: FC = () => {
 		AdminService.getCountUsers()
 	)
 
-	console.log(response)
-
 	return (
 		<div className={cn(styles.block, styles.countUsers)}>
 			<div>

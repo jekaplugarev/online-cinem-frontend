@@ -1,7 +1,7 @@
 import AuthProvider from './AuthProvider/AuthProvider'
 import HeadProvider from './HeadProvider'
 import ReduxToast from './ReduxToast'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 import { QueryClient, QueryClientProvider } from 'react-query'
 import { Provider } from 'react-redux'
 
@@ -19,7 +19,7 @@ const queryClient = new QueryClient({
 	},
 })
 
-const MainProvider: FC<TypeComponentAuthFields & { children: JSX.Element }> = ({
+const MainProvider: FC<TypeComponentAuthFields & { children: ReactNode }> = ({
 	children,
 	Component,
 }) => {

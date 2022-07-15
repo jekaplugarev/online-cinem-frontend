@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
-import { FC } from 'react'
+import { FC, ReactNode } from 'react'
 
 import { useAuth } from '@/hooks/useAuth'
 
 import { TypeComponentAuthFields } from '@/shared/types/auth.types'
 
-const CheckRole: FC<TypeComponentAuthFields & { children: JSX.Element }> = ({
+const CheckRole: FC<TypeComponentAuthFields & { children: ReactNode }> = ({
 	children,
 	Component: { isOnlyAdmin, isOnlyUser },
 }) => {

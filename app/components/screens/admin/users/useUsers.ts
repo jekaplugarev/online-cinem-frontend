@@ -1,5 +1,6 @@
-import { ChangeEvent, useState } from 'react'
-import { useQuery } from 'react-query'
+import { ChangeEvent, useMemo, useState } from 'react'
+import { useMutation, useQuery } from 'react-query'
+import { toastr } from 'react-redux-toastr'
 
 import { ITableItem } from '@/ui/admin-table/AdminTable/admin-table.interface'
 
@@ -8,6 +9,7 @@ import { useDebounce } from '@/hooks/useDebounce'
 import { UserService } from '@/services/user.service'
 
 import { convertMongoDate } from '@/utils/date/convertMongoDate'
+import { toastError } from '@/utils/toast-error'
 
 import { getAdminUrl } from '@/config/url.config'
 
@@ -27,6 +29,10 @@ export const useUsers = () => {
 						items: [user.email, convertMongoDate(user.createdAt)],
 					})
 				),
+
+			onError: (error) => {
+				toastError(error, 'Список пользователей')
+			},
 		}
 	)
 
@@ -34,5 +40,27 @@ export const useUsers = () => {
 		setSearchTerm(e.target.value)
 	}
 
-	return { isSuccess, data, handleSearch, searchTerm }
+	const { mutateAsync: deleteAsync } = useMutation(
+		'delete user',
+		(userId: string) => UserService.deleteUser(userId),
+		{
+			onError: (error) => {
+				toastError(error, 'Удаление пользователя')
+			},
+			onSuccess: () => {
+				toastr.success('Удаление пользователя', 'Удаление прошло успешно')
+				queryData.refetch()
+			},
+		}
+	)
+
+	return useMemo(
+		() => ({
+			handleSearch,
+			...queryData,
+			searchTerm,
+			deleteAsync,
+		}),
+		[queryData, searchTerm, deleteAsync]
+	)
 }

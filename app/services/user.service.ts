@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from 'api/interseptors'
 
 import { IUser } from '@/shared/types/user.types'
 
@@ -9,5 +9,9 @@ export const UserService = {
 		return axios.get<IUser[]>(getUsersUrl(''), {
 			params: searchTerm ? { searchTerm } : {},
 		})
+	},
+
+	async deleteUser(_id: string) {
+		return axios.delete<string>(getUsersUrl(`/${_id}`))
 	},
 }
