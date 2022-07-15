@@ -1,6 +1,6 @@
 import { FC } from 'react'
 
-import { useUsers } from '@/screens/admin/users/useUsers'
+import { useMovies } from '@/screens/admin/movies/useMovies'
 
 import AdminNavigation from '@/ui/admin-navigation/AdminNavigation'
 import AdminHeader from '@/ui/admin-table/AdminHeader/AdminHeader'
@@ -9,23 +9,23 @@ import Heading from '@/ui/heading/Heading'
 
 import Meta from '@/utils/meta/Meta'
 
-const UserList: FC = () => {
-	const { handleSearch, isLoading, searchTerm, data, deleteAsync } = useUsers()
+const MovieList: FC = () => {
+	const { handleSearch, isLoading, searchTerm, data, deleteAsync } = useMovies()
 
 	return (
-		<Meta title="Пользователи">
+		<Meta title="Фильмы">
 			<AdminNavigation />
-			<Heading title="Пользователи" />
+			<Heading title="Фильмы" />
 
 			<AdminHeader handleSearch={handleSearch} searchTerm={searchTerm} />
 			<AdminTable
 				isLoading={isLoading}
 				tableItems={data || []}
 				removeHandler={deleteAsync}
-				headerItems={['Почта', 'Дата регистрации']}
+				headerItems={['Название', 'Жанры', 'Рейтинг']}
 			/>
 		</Meta>
 	)
 }
 
-export default UserList
+export default MovieList
