@@ -10,14 +10,26 @@ import Heading from '@/ui/heading/Heading'
 import Meta from '@/utils/meta/Meta'
 
 const ActorList: FC = () => {
-	const { handleSearch, isLoading, searchTerm, data, deleteAsync } = useActors()
+	const {
+		handleSearch,
+		isLoading,
+		searchTerm,
+		data,
+		deleteAsync,
+		createAsync,
+	} = useActors()
 
 	return (
 		<Meta title="Актеры">
 			<AdminNavigation />
 			<Heading title="Актеры" />
 
-			<AdminHeader handleSearch={handleSearch} searchTerm={searchTerm} />
+			<AdminHeader
+				handleSearch={handleSearch}
+				searchTerm={searchTerm}
+				onClick={createAsync}
+			/>
+
 			<AdminTable
 				isLoading={isLoading}
 				tableItems={data || []}

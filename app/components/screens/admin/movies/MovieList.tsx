@@ -10,14 +10,26 @@ import Heading from '@/ui/heading/Heading'
 import Meta from '@/utils/meta/Meta'
 
 const MovieList: FC = () => {
-	const { handleSearch, isLoading, searchTerm, data, deleteAsync } = useMovies()
+	const {
+		handleSearch,
+		isLoading,
+		searchTerm,
+		data,
+		deleteAsync,
+		createAsync,
+	} = useMovies()
 
 	return (
 		<Meta title="Фильмы">
 			<AdminNavigation />
 			<Heading title="Фильмы" />
 
-			<AdminHeader handleSearch={handleSearch} searchTerm={searchTerm} />
+			<AdminHeader
+				handleSearch={handleSearch}
+				searchTerm={searchTerm}
+				onClick={createAsync}
+			/>
+
 			<AdminTable
 				isLoading={isLoading}
 				tableItems={data || []}

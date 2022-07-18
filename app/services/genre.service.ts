@@ -17,6 +17,10 @@ export const GenreService = {
 		return axios.get<IGenreEditInput>(getGenresUrl(`/${_id}`))
 	},
 
+	async create() {
+		return axios.post<string>(getGenresUrl('/'))
+	},
+
 	async delete(_id: string) {
 		return axios.delete<string>(getGenresUrl(`/${_id}`))
 	},

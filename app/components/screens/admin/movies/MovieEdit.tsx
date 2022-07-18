@@ -3,8 +3,8 @@ import { FC } from 'react'
 import { Controller, useForm } from 'react-hook-form'
 import { stripHtml } from 'string-strip-html'
 
-import { IGenreEditInput } from '@/screens/admin/genres/genre-edit.interface'
-import { useGenreEdit } from '@/screens/admin/genres/useGenreEdit'
+import { IMovieEditInput } from '@/screens/admin/movies/movie-edit.interface'
+import { useMovieEdit } from '@/screens/admin/movies/useMovieEdit'
 
 import SkeletonLoader from '@/ui/SkeletonLoader'
 import AdminNavigation from '@/ui/admin-navigation/AdminNavigation'
@@ -25,7 +25,7 @@ const DynamicTextEditor = dynamic(
 	}
 )
 
-const GenreEdit: FC = () => {
+const MovieEdit: FC = () => {
 	const {
 		handleSubmit,
 		register,
@@ -33,13 +33,13 @@ const GenreEdit: FC = () => {
 		formState: { errors },
 		setValue,
 		getValues,
-	} = useForm<IGenreEditInput>({ mode: 'onChange' })
-	const { isLoading, onSubmit } = useGenreEdit(setValue)
+	} = useForm<IMovieEditInput>({ mode: 'onChange' })
+	const { isLoading, onSubmit } = useMovieEdit(setValue)
 
 	return (
-		<Meta title="Редактирование жанра">
+		<Meta title="Редактирование фильма">
 			<AdminNavigation />
-			<Heading title="Редактирование жанра" />
+			<Heading title="Редактирование фильма" />
 
 			<form onSubmit={handleSubmit(onSubmit)} className={formStyles.form}>
 				{isLoading ? (
@@ -108,4 +108,4 @@ const GenreEdit: FC = () => {
 	)
 }
 
-export default GenreEdit
+export default MovieEdit

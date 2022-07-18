@@ -1,3 +1,4 @@
+import { useRouter } from 'next/router'
 import { ChangeEvent, useMemo, useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 import { toastr } from 'react-redux-toastr'
@@ -15,6 +16,7 @@ import { getAdminUrl } from '@/config/url.config'
 export const useActors = () => {
 	const [searchTerm, setSearchTerm] = useState('')
 	const debouncedSearch = useDebounce(searchTerm, 500)
+	const { push } = useRouter()
 
 	const queryData = useQuery(
 		['actors list', debouncedSearch],
@@ -39,6 +41,20 @@ export const useActors = () => {
 		setSearchTerm(e.target.value)
 	}
 
+	const { mutateAsync: createAsync } = useMutation(
+		'create actor',
+		() => ActorService.create(),
+		{
+			onError: (error) => {
+				toastError(error, 'Создание актера')
+			},
+			onSuccess: ({ data: _id }) => {
+				toastr.success('Создание актера', 'Создание прошло успешно')
+				push(getAdminUrl(`actor/edit/${_id}`))
+			},
+		}
+	)
+
 	const { mutateAsync: deleteAsync } = useMutation(
 		'delete actor',
 		(actorId: string) => ActorService.delete(actorId),
@@ -59,7 +75,8 @@ export const useActors = () => {
 			...queryData,
 			searchTerm,
 			deleteAsync,
+			createAsync,
 		}),
-		[queryData, searchTerm, deleteAsync]
+		[queryData, searchTerm, deleteAsync, createAsync]
 	)
 }

@@ -10,6 +10,7 @@ export const usePopularGenre = () => {
 	return useQuery('popular genre menu', () => GenreService.getAll(), {
 		select: ({ data }) =>
 			data
+				.filter((genre) => genre.icon)
 				.map(
 					(genre) =>
 						({
