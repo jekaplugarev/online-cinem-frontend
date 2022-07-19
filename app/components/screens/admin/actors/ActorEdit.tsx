@@ -1,6 +1,5 @@
-import dynamic from 'next/dynamic'
 import { FC } from 'react'
-import { useForm } from 'react-hook-form'
+import { Controller, useForm } from 'react-hook-form'
 
 import { IActorEditInput } from '@/screens/admin/actors/actor-edit.interface'
 import { useActorEdit } from '@/screens/admin/actors/useActorEdit'
@@ -10,19 +9,13 @@ import AdminNavigation from '@/ui/admin-navigation/AdminNavigation'
 import Button from '@/ui/form-elements/Button'
 import Field from '@/ui/form-elements/Field'
 import SlugField from '@/ui/form-elements/SlugField/SlugField'
+import UploadField from '@/ui/form-elements/UploadField/UploadField'
 import Heading from '@/ui/heading/Heading'
 
 import Meta from '@/utils/meta/Meta'
 import { generateSlug } from '@/utils/string/generateSlug'
 
 import formStyles from '../../../ui/form-elements/admin-form.module.scss'
-
-const DynamicTextEditor = dynamic(
-	() => import('@/ui/form-elements/TextEditor'),
-	{
-		ssr: false,
-	}
-)
 
 const ActorEdit: FC = () => {
 	const {
@@ -61,20 +54,26 @@ const ActorEdit: FC = () => {
 								error={errors.slug}
 							/>
 
-							{/*<Controller*/}
-							{/*	control={control}*/}
-							{/*	name="photo"*/}
-							{/*	defaultValue=""*/}
-							{/*	render={({*/}
-							{/*		field: { value, onChange },*/}
-							{/*		fieldState: { error },*/}
-							{/*	}) => (*/}
-							{/*		//photo upload*/}
-							{/*	)}*/}
-							{/*	rules={{*/}
-							{/*		required: 'Фото обязательно'*/}
-							{/*	}}*/}
-							{/*/>*/}
+							<Controller
+								control={control}
+								name="photo"
+								defaultValue=""
+								render={({
+									field: { value, onChange },
+									fieldState: { error },
+								}) => (
+									<UploadField
+										onChange={onChange}
+										value={value}
+										error={error}
+										folder="actor"
+										placeholder="Фото"
+									/>
+								)}
+								rules={{
+									required: 'Фото обязательно',
+								}}
+							/>
 						</div>
 						<Button>Обновить</Button>
 					</>
