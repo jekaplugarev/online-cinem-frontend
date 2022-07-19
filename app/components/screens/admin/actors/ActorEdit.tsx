@@ -43,7 +43,7 @@ const ActorEdit: FC = () => {
 								{...register('name', {
 									required: 'Название обязательно',
 								})}
-								placeholder="Название"
+								placeholder="Имя"
 								error={errors.name}
 							/>
 							<SlugField
