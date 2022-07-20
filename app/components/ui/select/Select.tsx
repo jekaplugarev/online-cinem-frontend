@@ -47,6 +47,7 @@ const Select: FC<ISelect> = ({
 					onChange={onChange}
 					components={animatedComponent}
 					isLoading={isLoading}
+					placeholder={placeholder}
 				/>
 			</label>
 			{error && <div className={formStyles.error}>{error.message}</div>}

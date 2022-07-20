@@ -1,10 +1,14 @@
+import dynamic from 'next/dynamic'
 import { FC } from 'react'
 
 import MenuItem from '@/components/layout/Navigation/MenuContainer/MenuItem'
-import AuthItems from '@/components/layout/Navigation/MenuContainer/auth/AuthItems'
 import { IMenu } from '@/components/layout/Navigation/MenuContainer/menu.interface'
 
 import styles from './Menu.module.scss'
+
+const DynamicAuthItems = dynamic(() => import('./auth/AuthItems'), {
+	ssr: false,
+})
 
 const Menu: FC<{ menu: IMenu }> = ({ menu: { items, title } }) => {
 	return (
@@ -14,7 +18,7 @@ const Menu: FC<{ menu: IMenu }> = ({ menu: { items, title } }) => {
 				{items.map((item) => (
 					<MenuItem item={item} key={item.link} />
 				))}
-				{title === 'Администратор' ? <AuthItems /> : null}
+				{title === 'Администратор' ? <DynamicAuthItems /> : null}
 			</ul>
 		</div>
 	)
