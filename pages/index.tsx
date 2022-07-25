@@ -50,7 +50,7 @@ export const getStaticProps: GetStaticProps = async () => {
 			.map((m) => ({
 				name: m.title,
 				posterPath: m.poster,
-				link: getActorUrl(m.slug),
+				link: getMovieUrl(m.slug),
 			}))
 
 		return {
