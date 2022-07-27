@@ -2,6 +2,7 @@ import axios from 'api/interseptors'
 
 import { IProfileInput } from '@/screens/profile/profile.interface'
 
+import { IMovie } from '@/shared/types/movie.types'
 import { IUser } from '@/shared/types/user.types'
 
 import { getUsersUrl } from '@/config/api.config'
@@ -17,12 +18,20 @@ export const UserService = {
 		return axios.get<IUser>(getUsersUrl('/profile'))
 	},
 
+	async getFavorites() {
+		return axios.get<IMovie[]>(getUsersUrl('/profile/favorites'))
+	},
+
 	async getById(_id: string) {
 		return axios.get<IUser>(getUsersUrl(`/${_id}`))
 	},
 
 	async updateProfile(data: IProfileInput) {
 		return axios.put<string>(getUsersUrl('/profile'), data)
+	},
+
+	async toggleFavorites(movieId: string) {
+		return axios.put<string>(getUsersUrl('/profile/favorites'), { movieId })
 	},
 
 	async update(_id: string, data: IProfileInput) {
