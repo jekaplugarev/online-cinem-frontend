@@ -1,4 +1,3 @@
-import HeartImage from '../../../../../web_heart_animation.png'
 import cn from 'classnames'
 import { FC, useEffect, useState } from 'react'
 import { useMutation } from 'react-query'
@@ -46,7 +45,7 @@ const FavoriteButton: FC<{ movieId: string }> = ({ movieId }) => {
 			className={cn(styles.button, {
 				[styles.animate]: isSmashed,
 			})}
-			style={{ backgroundImage: `url(${HeartImage.src})` }}
+			style={{ backgroundImage: `url(/web_heart_animation.png)` }}
 		/>
 	)
 }

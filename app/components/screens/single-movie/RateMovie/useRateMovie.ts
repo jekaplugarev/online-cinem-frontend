@@ -1,11 +1,15 @@
 import { useState } from 'react'
 import { useMutation, useQuery } from 'react-query'
 
+import { useAuth } from '@/hooks/useAuth'
+
 import { RatingService } from '@/services/rating.service'
 
 import { toastError } from '@/utils/toast-error'
 
 export const useRateMovie = (movieId: string) => {
+	const { user } = useAuth()
+
 	const [rating, setRating] = useState(0)
 	const [isSended, setIsSended] = useState(false)
 
@@ -19,7 +23,7 @@ export const useRateMovie = (movieId: string) => {
 			onSuccess: ({ data }) => {
 				setRating(data)
 			},
-			enabled: !!movieId,
+			enabled: !!movieId && !!user,
 		}
 	)
 	const { mutateAsync } = useMutation(

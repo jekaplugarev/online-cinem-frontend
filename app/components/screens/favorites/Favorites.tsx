@@ -6,12 +6,17 @@ import { useFavorites } from '@/screens/favorites/useFavorites'
 import SkeletonLoader from '@/ui/SkeletonLoader'
 import Heading from '@/ui/heading/Heading'
 
+import { useAuth } from '@/hooks/useAuth'
+
 import Meta from '@/utils/meta/Meta'
 
 import styles from './Favorites.module.scss'
 
 const Favorites: FC = () => {
+	const { user } = useAuth()
 	const { favoriteMovies, isLoading } = useFavorites()
+
+	if (!user) return null
 
 	return (
 		<Meta title="Избранное">
